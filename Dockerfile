@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Jink19v@gmail.com
 
 # Take arguments
-ENV frequency "0 * * * *"
+ENV FREQUENCY "0 * * * *"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
@@ -21,11 +21,11 @@ VOLUME /input_dir
 VOLUME /output_dir
 
 # Create run script
-RUN echo "if [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\n/flac2mp3 /input_dir /output_dir" > run.sh
+RUN echo "if [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\n/flac2mp3 /input_dir /output_dir" > /run.sh
 RUN chmod +x run.sh
 
 # Create cron job
-RUN echo "$frequency /run.sh >> /var/log/cron.log 2>&1\n" > /etc/cron.d/flac2mp3-cron 
+RUN echo "$FREQUENCY /run.sh >> /var/log/cron.log 2>&1\n" > /etc/cron.d/flac2mp3-cron 
 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/flac2mp3-cron
