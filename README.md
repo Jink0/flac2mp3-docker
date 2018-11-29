@@ -7,5 +7,6 @@ Based upon https://github.com/jhillyerd/flac2mp3
 
 TODO:
 
-LAME options argument
-Watch input folder
+- LAME options argument
+
+- Watch input folder
