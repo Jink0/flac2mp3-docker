@@ -1,10 +1,12 @@
 FROM ubuntu:latest
 MAINTAINER Jink19v@gmail.com
 
+# Take arguments
+ENV frequency "0 * * * *"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils > /dev/null
 RUN apt-get install wget -y > /dev/null
 RUN apt-get install flac -y > /dev/null
 RUN apt-get install lame -y > /dev/null
@@ -17,9 +19,6 @@ RUN chmod +x flac2mp3
 # Mount volumes
 VOLUME /input_dir
 VOLUME /output_dir
-
-# Take arguments
-ARG frequency="0 * * * *"
 
 # Create run script
 RUN echo "if [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\n/flac2mp3 /input_dir /output_dir" > run.sh
