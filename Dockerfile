@@ -28,8 +28,10 @@ VOLUME /FLAC_dir
 VOLUME /mp3_dir
 
 # Create run script
-RUN echo "#!/bin/bash\n\nif [[ \"\`pidof -x $(basename $0) -o %PPID\`\" ]]; then exit; fi\n\n/flac2mp3/flac2mp3.pl $OPTS /FLAC_dir /mp3_dir" > /run.sh
+RUN echo "#!/bin/bash\n\nif pidof -x $(basename $0) > /dev/null; then\n  for p in $(pidof -x $(basename $0)); do\n    if [ $p -ne $$ ]; then\n      echo "Script $0 is already running: exiting"\n      exit\n    fi\n  done\nfi\n\n/flac2mp3/flac2mp3.pl $OPTS /FLAC_dir /mp3_dir" > /run.sh
 RUN chmod +x run.sh
+
+RUN cat run.sh
 
 # Create cron job
 RUN echo "$FREQUENCY /run.sh >> /var/log/cron.log 2>&1\n" > /etc/cron.d/flac2mp3-cron 
@@ -45,3 +47,4 @@ RUN touch /var/log/cron.log
 
 # Run the command on container startup
 CMD cron && tail -f /var/log/cron.log
+
