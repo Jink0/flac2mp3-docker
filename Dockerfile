@@ -4,7 +4,7 @@ MAINTAINER Jink19v@gmail.com
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Take arguments
-ENV FREQUENCY "* * * * *"
+ENV FREQUENCY "0 * * * *"
 ENV USER=99
 ENV GROUP=100
 ENV OPTS="--preset=V2 --processes=4 --copyfiles"
