@@ -10,3 +10,5 @@ TODO:
 - LAME options argument
 
 - Watch input folder
+
+- Fix files with "flac -F  test.flac -o test-1.flac"
