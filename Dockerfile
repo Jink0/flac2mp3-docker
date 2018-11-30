@@ -1,9 +1,15 @@
 FROM ubuntu:latest
 MAINTAINER Jink19v@gmail.com
 
+ARG DEBIAN_FRONTEND noninteractive
+
 # Take arguments
 ENV FREQUENCY "0 * * * *"
-ENV DEBIAN_FRONTEND noninteractive
+ENV USER
+ENV GROUP
+
+# Set user and group
+RUN groupadd -r $GROUP && useradd --no-log-init -r -g $GROUP $USER
 
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils > /dev/null
