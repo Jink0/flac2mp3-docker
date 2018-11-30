@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 MAINTAINER Jink19v@gmail.com
 
-ARG DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Take arguments
 ENV FREQUENCY "0 * * * *"
