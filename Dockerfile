@@ -5,7 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Take arguments 
 ENV FREQUENCY "0 * * * *" 
-ENV USER=99 ENV GROUP=100 
+ENV USER=99 
+ENV GROUP=100 
 
 # Set user and group 
 RUN groupadd -r $GROUP && useradd --no-log-init -r -g $GROUP $USER
