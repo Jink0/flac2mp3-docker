@@ -16,7 +16,7 @@ RUN set -ex \ && deps=' \
       unzip \
       lib32stdc++6'
 
-RUN apt-get update && apt-get install -y --no-install-recommends $deps && rm -rf /var/lib/apt/lists/* \ 
+RUN apt-get update && apt-get install -y --no-install-recommends $deps && rm -rf /var/lib/apt/lists/*
  
 ### Install Python dependencies ###
 RUN pip install \ 
@@ -26,7 +26,9 @@ RUN pip install \
 ### Install the Nero AAC Codec binaries ###
 #RUN mkdir -p /root/.local/bin
  
-RUN add-apt-repository -y ppa:robert-tari/main && apt-get update && apt-get install -y neroaac
+RUN add-apt-repository -y ppa:robert-tari/main
+RUN apt-get update
+RUN apt-get install -y neroaac
 
 ### Install flacsync ###
 RUN curl -O -J -L https://github.com/cmcginty/flacsync/raw/master/dist/flacsync-${FLACSYNC_VERSION}.tar.gz \
