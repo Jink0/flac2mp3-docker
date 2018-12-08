@@ -26,7 +26,7 @@ RUN pip install \
 ### Install the Nero AAC Codec binaries ###
 #RUN mkdir -p /root/.local/bin
  
-RUN apt-get install -y software-properties-common
+RUN apt-get install software-properties-common
 RUN add-apt-repository -y ppa:robert-tari/main
 RUN apt-get update
 RUN apt-get install -y neroaac
