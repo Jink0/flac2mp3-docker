@@ -24,19 +24,12 @@ RUN pip install \
     mutagen
 	
 ### Install the Nero AAC Codec binaries ###
-RUN mkdir -p /root/.local/bin
+#RUN mkdir -p /root/.local/bin
  
-### videohelp.com has an HTTP redirect to the download file ###
-RUN curl -o NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip -J -L $( \
-      curl -L -s http://www.videohelp.com/download/NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip \ 
-      | grep -i HTTP-EQUIV=\"Refresh \
-      | grep -o http:[^\"]* \
-    )
-    
-RUN unzip -j -d /root/.local/bin NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip linux/* \
- && chmod -R u+x /root/.local/bin \
- && rm -f NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip
- 
+add-apt-repository -y ppa:robert-tari/main
+apt-get update
+apt-get install -y neroaac
+
 ### Install flacsync ###
 RUN curl -O -J -L https://github.com/cmcginty/flacsync/raw/master/dist/flacsync-${FLACSYNC_VERSION}.tar.gz \
  && tar xzf flacsync-${FLACSYNC_VERSION}.tar.gz \
