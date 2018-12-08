@@ -38,12 +38,12 @@ RUN unzip -j -d /root/.local/bin NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip linu
  && rm -f NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip
  
 ### Install flacsync ###
- && curl -O -J -L https://github.com/cmcginty/flacsync/raw/master/dist/flacsync-${FLACSYNC_VERSION}.tar.gz \
+RUN curl -O -J -L https://github.com/cmcginty/flacsync/raw/master/dist/flacsync-${FLACSYNC_VERSION}.tar.gz \
  && tar xzf flacsync-${FLACSYNC_VERSION}.tar.gz \
- && cd flacsync-${FLACSYNC_VERSION} \
+ && cd flacsync-${FLACSYNC_VERSION}
  
 ### PIL is currently unmaintained, so use Pillow in its place ###
- && sed -i 's/import Image/from PIL import Image/' flacsync/encoder.py \
+RUN sed -i 's/import Image/from PIL import Image/' flacsync/encoder.py \
  && python setup.py install --user \
  && cd - \
  && rm -rf flacsync-${FLACSYNC_VERSION} \
