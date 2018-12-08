@@ -14,27 +14,28 @@ RUN set -ex \ && deps=' \
       vorbis-tools \
       lame \
       unzip \
-      lib32stdc++6 \
-    ' \
- && apt-get update && apt-get install -y --no-install-recommends $deps && rm -rf /var/lib/apt/lists/* \ 
+      lib32stdc++6'
+
+RUN apt-get update && apt-get install -y --no-install-recommends $deps && rm -rf /var/lib/apt/lists/* \ 
  
 ### Install Python dependencies ###
- && pip install \ 
+RUN pip install \ 
     Pillow \ 
-    mutagen \ 
+    mutagen
 	
 ### Install the Nero AAC Codec binaries ###
- && mkdir -p /root/.local/bin \
+RUN mkdir -p /root/.local/bin
  
 ### videohelp.com has an HTTP redirect to the download file ###
- && curl -o NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip -J -L $( \
+RUN curl -o NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip -J -L $( \
       curl -L -s http://www.videohelp.com/download/NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip \ 
       | grep -i HTTP-EQUIV=\"Refresh \
       | grep -o http:[^\"]* \
-    ) \
- && unzip -j -d /root/.local/bin NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip linux/* \
+    )
+    
+RUN unzip -j -d /root/.local/bin NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip linux/* \
  && chmod -R u+x /root/.local/bin \
- && rm -f NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip \
+ && rm -f NeroAACCodec-${NERO_AAC_CODEC_VERSION}.zip
  
 ### Install flacsync ###
  && curl -O -J -L https://github.com/cmcginty/flacsync/raw/master/dist/flacsync-${FLACSYNC_VERSION}.tar.gz \
