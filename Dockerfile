@@ -42,6 +42,7 @@ RUN add-apt-repository -y ppa:robert-tari/main
 RUN apt-get update
 RUN apt-get install -y neroaac
 RUN apt-get install -y curl
+RUN apt-get install -y cron
 
 ### Install flacsync ###
 RUN curl -O -J -L https://github.com/cmcginty/flacsync/raw/master/dist/flacsync-${FLACSYNC_VERSION}.tar.gz
