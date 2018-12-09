@@ -79,5 +79,7 @@ RUN crontab /etc/cron.d/flacsync-cron
 # Create the log file to be able to run tail 
 RUN touch /var/log/cron.log
 
+RUN apt-get install -y rsyslog
+
 # Run the command on container startup 
-CMD cron && tail -f /var/log/cron.log
+CMD cron -L15 && tail -f /var/log/cron.log
