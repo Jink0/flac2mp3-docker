@@ -1,8 +1,6 @@
 FROM ubuntu:latest 
 MAINTAINER Jink19v@gmail.com 
 
-ARG DEBIAN_FRONTEND=noninteractive 
-
 # Take arguments 
 ENV FREQUENCY "0 * * * *" 
 ENV USER=99 
@@ -11,12 +9,14 @@ ENV GROUP=100
 # Set user and group 
 RUN groupadd -r $GROUP && useradd --no-log-init -r -g $GROUP $USER
 
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
 # Install dependencies 
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils > /dev/null
-RUN apt-get install wget -y > /dev/null
-RUN apt-get install flac -y > /dev/null
-RUN apt-get install lame -y > /dev/null
-RUN apt-get install cron -y > /dev/null
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install wget -y
+RUN apt-get install flac -y
+RUN apt-get install lame -y
+RUN apt-get install cron -y
 
 # Get flac2mp3 script 
 RUN wget https://raw.githubusercontent.com/jhillyerd/flac2mp3/master/flac2mp3
