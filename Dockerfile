@@ -1,4 +1,4 @@
-FROM ubuntu:14.10
+FROM nitincypher/docker-ubuntu-python-pip
 
 ARG FLACSYNC_VERSION=0.3.2 
 ARG NERO_AAC_CODEC_VERSION=1.5.1
@@ -6,28 +6,6 @@ ARG NERO_AAC_CODEC_VERSION=1.5.1
 ENV THREAD_COUNT=4
 ENV ENC_TYPE=mp3
 ENV MP3_Q=2
-
-### Instal python ###
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y \
-    build-essential \
-    ca-certificates \
-    gcc \
-    git \
-    libpq-dev \
-    make \
-    python-pip \
-    python2.7 \
-    python2.7-dev \
-    ssh \
-    && apt-get autoremove \
-    && apt-get clean
-
-RUN pip install -U "setuptools==3.4.1"
-RUN pip install -U "pip==1.5.4"
-RUN pip install -U "Mercurial==2.9.1"
-RUN pip install -U "virtualenv==1.11.4"
 
 ### Install dependencies ### 
 RUN set -ex \ && deps=' \
