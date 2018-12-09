@@ -64,7 +64,7 @@ VOLUME /data/in
 VOLUME /data/out
 
 # Create run script 
-RUN echo "#!/bin/bash\n\nif [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\nflacsync --threads=${THREAD_COUNT} --type=${ENC_TYPE} --copy-cover-art --mp3-quality=${MP3_Q} -d data/out data/in" > /run.sh
+RUN echo "#!/bin/bash\n\nif [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\nexport PATH=/root/.local/bin:$PATH\n\nflacsync --threads=${THREAD_COUNT} --type=${ENC_TYPE} --copy-cover-art --mp3-quality=${MP3_Q} -d data/out data/in" > /run.sh
 RUN chmod +x run.sh
 
 # Create cron job 
