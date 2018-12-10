@@ -17,10 +17,15 @@ RUN apt-get install wget -y
 RUN apt-get install flac -y
 RUN apt-get install lame -y
 RUN apt-get install cron -y
+RUN apt-get install sed -y
 
 # Get flac2mp3 script 
 RUN wget https://raw.githubusercontent.com/jhillyerd/flac2mp3/master/flac2mp3
 RUN chmod +x flac2mp3
+
+# Modify script
+RUN sed -i 's/\<cat\>/mv "$filepath.flac" "$filepath.flac_failed_decoding"\n      &/' flac2mp3
+RUN sed -e "s/      exit 1//g" -i flac2mp3
 
 # Mount volumes 
 VOLUME /input_dir
