@@ -23,6 +23,8 @@ RUN apt-get install sed -y
 RUN wget https://raw.githubusercontent.com/jhillyerd/flac2mp3/master/flac2mp3
 RUN chmod +x flac2mp3
 
+RUN touch /output_dir/failed_list.txt
+
 # Modify script
 RUN sed -i 's;\<cat\>;echo "$filepath.flac" >> /output_dir/failed_list.txt\n      &;' flac2mp3
 RUN sed -e "s/      exit 1//g" -i flac2mp3
