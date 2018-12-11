@@ -24,10 +24,10 @@ RUN wget https://raw.githubusercontent.com/jhillyerd/flac2mp3/master/flac2mp3
 RUN chmod +x flac2mp3
 
 # Modify script
-RUN sed -i 's;\<cat\>;echo "$filepath.flac" >> /output_dir/failed_list\n      &;' flac2mp3
+RUN sed -i 's;\<cat\>;echo "$filepath.flac" >> /output_dir/failed_list.txt\n      &;' flac2mp3
 RUN sed -e "s/      exit 1//g" -i flac2mp3
 
-RUN sed -i 's/\<print\>/or -name \"*.jpeg\" -or -name \"*.Jpeg\"  -or -name \"*.JPG\" -or -name \"*.png\" -&/' flac2mp3    # -or -name "*.jpeg" -or -name "*.jpeg"  -or -name "*.JPG" -or -name "*.png"/'
+#RUN sed -i 's/\<print\>/or -name \"*.jpeg\" -or -name \"*.Jpeg\"  -or -name \"*.JPG\" -or -name \"*.png\" -&/' flac2mp3
 
 # Mount volumes 
 VOLUME /input_dir
