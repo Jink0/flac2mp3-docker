@@ -34,7 +34,7 @@ VOLUME /input_dir
 VOLUME /output_dir
 
 # Create run script 
-RUN echo "if [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\n/flac2mp3 /input_dir /output_dir" > /run.sh
+RUN echo "#!/bin/bash\n\nif [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\n/flac2mp3 /input_dir /output_dir" > /run.sh
 RUN chmod +x run.sh
 
 # Create cron job 
