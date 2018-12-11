@@ -29,8 +29,6 @@ RUN sed -e "s/      exit 1//g" -i flac2mp3
 
 RUN sed -i 's/\<print\>/or -name \"*.jpeg\" -or -name \"*.Jpeg\"  -or -name \"*.JPG\" -or -name \"*.png\" -&/' flac2mp3    # -or -name "*.jpeg" -or -name "*.jpeg"  -or -name "*.JPG" -or -name "*.png"/'
 
-RUN cat flac2mp3
-RUN false
 # Mount volumes 
 VOLUME /input_dir
 VOLUME /output_dir
