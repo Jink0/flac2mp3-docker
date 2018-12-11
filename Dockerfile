@@ -49,7 +49,5 @@ RUN crontab /etc/cron.d/flac2mp3-cron
 # Create the log file to be able to run tail 
 RUN touch /var/log/cron.log
 
-CMD touch /output_dir/failed_list.txt
-
 # Run the command on container startup 
-CMD cron && tail -f /var/log/cron.log
+CMD touch /output_dir/failed_list.txt && cron && tail -f /var/log/cron.log
