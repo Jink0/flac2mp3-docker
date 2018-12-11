@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Jink19v@gmail.com 
 
 # Take arguments 
-ENV FREQUENCY "* * * * *" 
+ENV FREQUENCY "0 * * * *" 
 ENV USER=99 
 ENV GROUP=100 
 
