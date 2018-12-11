@@ -24,7 +24,7 @@ RUN wget https://raw.githubusercontent.com/jhillyerd/flac2mp3/master/flac2mp3
 RUN chmod +x flac2mp3
 
 # Modify script
-RUN sed -i 's;\<cat\>;echo "$filepath.flac" >> /output_dir/failed_list.txt\n      &;' flac2mp3
+RUN sed -i 's;\<cat\>;echo "$filepath.flac"\n      &;' flac2mp3
 RUN sed -e "s/      exit 1//g" -i flac2mp3
 
 #RUN sed -i 's/\<print\>/or -name \"*.jpeg\" -or -name \"*.Jpeg\"  -or -name \"*.JPG\" -or -name \"*.png\" -&/' flac2mp3
@@ -48,6 +48,10 @@ RUN crontab /etc/cron.d/flac2mp3-cron
 
 # Create the log file to be able to run tail 
 RUN touch /var/log/cron.log
+
+RUN sed -i 's;\<sleep\s2\>;echo "$filepath.flac" >> /output_dir/failed_list.txt\n      &;' flac2mp3
+
+RUN cat flac2mp3
 
 # Run the command on container startup 
 CMD touch /output_dir/failed_list.txt && cron && tail -f /var/log/cron.log
