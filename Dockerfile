@@ -33,8 +33,6 @@ RUN sed -e "s/      exit 1//g" -i flac2mp3
 VOLUME /input_dir
 VOLUME /output_dir
 
-RUN touch /output_dir/failed_list.txt
-
 # Create run script 
 RUN echo "#!/bin/bash\n\nif [[ \"`pidof -x $(basename $0) -o %PPID`\" ]]; then exit; fi\n\n/flac2mp3 /input_dir /output_dir" > /run.sh
 RUN chmod +x run.sh
@@ -51,7 +49,7 @@ RUN crontab /etc/cron.d/flac2mp3-cron
 # Create the log file to be able to run tail 
 RUN touch /var/log/cron.log
 
-RUN cat flac2mp3
+CMD touch /output_dir/failed_list.txt
 
 # Run the command on container startup 
 CMD cron && tail -f /var/log/cron.log
